@@ -1,0 +1,2 @@
+class BtcExchangeRate < ApplicationRecord
+end
