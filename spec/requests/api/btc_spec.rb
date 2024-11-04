@@ -4,15 +4,7 @@ require 'webmock/rspec'
 RSpec.describe Api::BtcController, type: :controller do
   describe 'Get update rates' do
     before do
-      stub_request(:get, 'https://api.coindesk.com/v1/bpi/currentprice.json')
-        .to_return(status: 200, body: {
-          bpi: {
-            USD: { rate_float: 50_000.0, symbol: '$', description: 'United States Dollar' },
-            EUR: { rate_float: 42_000.0, symbol: '€', description: 'Euro' }
-          }
-        }.to_json, headers: { 'Content-Type' => 'application/json' })
-
-      BtcExchangeRate.delete_all
+      update_rates
     end
 
     it 'updates existing currency rates' do
@@ -41,9 +33,22 @@ RSpec.describe Api::BtcController, type: :controller do
   end
 
   describe 'Get current rates' do
-    it 'show json response ' do
+    it 'show json response and update currencies' do
+      update_rates
       get :current_rate
       expect(response.content_type).to eq('application/json; charset=utf-8')
     end
+  end
+
+  def update_rates
+    stub_request(:get, 'https://api.coindesk.com/v1/bpi/currentprice.json')
+      .to_return(status: 200, body: {
+        bpi: {
+          USD: { rate_float: 50_000.0, symbol: '$', description: 'United States Dollar' },
+          EUR: { rate_float: 42_000.0, symbol: '€', description: 'Euro' }
+        }
+      }.to_json, headers: { 'Content-Type' => 'application/json' })
+
+    BtcExchangeRate.delete_all
   end
 end
