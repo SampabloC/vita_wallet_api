@@ -28,5 +28,9 @@ Rails.application.routes.draw do
       get 'user_history', to: 'transactions#user_history'
       post 'create', to: 'transactions#create'
     end
+
+    scope :user_balances do
+      post 'update', to: 'user_balances#update'
+    end
   end
 end
