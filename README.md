@@ -1,24 +1,14 @@
-# README
+# Vita Wallet
+## Instrucciones
+Para ejecutar este proyecto, en manera local, hay que realzar las configuraciones de instalacion.
+Ejecutamos los comandos
+- bundle install
+- rails db:setup
+- rails server
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Esto creara una instancia de manera local, sobre la cual, para poder ver la documentacion de los endpoints podemos acceder a 'localhost:3000/api-docs'
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Especificacion
+Esta aplicacion fue construida con las siguientes version
+- Rails 7.1.4
+- Ruby 3.0.6
