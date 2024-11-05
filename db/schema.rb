@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_04_234745) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_05_024048) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -23,15 +23,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_04_234745) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "table_user_transactions", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "transactions_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["transactions_id"], name: "index_table_user_transactions_on_transactions_id"
-    t.index ["user_id"], name: "index_table_user_transactions_on_user_id"
-  end
-
   create_table "transactions", force: :cascade do |t|
     t.bigint "currency_to_use_id", null: false
     t.bigint "currency_to_receive_id", null: false
@@ -41,8 +32,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_04_234745) do
     t.string "details"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
     t.index ["currency_to_receive_id"], name: "index_transactions_on_currency_to_receive_id"
     t.index ["currency_to_use_id"], name: "index_transactions_on_currency_to_use_id"
+    t.index ["user_id"], name: "index_transactions_on_user_id"
   end
 
   create_table "user_balances", force: :cascade do |t|
@@ -63,13 +56,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_04_234745) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_balance_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["user_balance_id"], name: "index_users_on_user_balance_id"
   end
 
-  add_foreign_key "table_user_transactions", "transactions", column: "transactions_id"
-  add_foreign_key "table_user_transactions", "users"
   add_foreign_key "transactions", "btc_exchange_rates", column: "currency_to_receive_id"
   add_foreign_key "transactions", "btc_exchange_rates", column: "currency_to_use_id"
+  add_foreign_key "transactions", "users"
   add_foreign_key "user_balances", "users"
+  add_foreign_key "users", "user_balances"
 end
