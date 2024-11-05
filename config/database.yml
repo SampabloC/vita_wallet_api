@@ -79,6 +79,7 @@ test:
 #
 production:
   <<: *default
-  database: vita_wallet_production
-  username: vita_wallet
-  password: <%= ENV["VITA_WALLET_DATABASE_PASSWORD"] %>
+  url: <%= ENV['DATABASE_URL'] %>
+  # database: vita_wallet_production
+  # username: vita_wallet
+  # password: <%= ENV["VITA_WALLET_DATABASE_PASSWORD"] %>
