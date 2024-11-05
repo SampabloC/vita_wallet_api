@@ -1,0 +1,139 @@
+---
+openapi: 3.0.1
+info:
+  title: API
+  version: v1
+paths:
+  "/api/btc/current_rates":
+    get:
+      summary: current_rate btc
+      tags:
+      - BtcController
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Get information of the current rates updated
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+  "/api/btc/update_rates":
+    get:
+      summary: update_rates btc
+      tags:
+      - BtcController
+      responses:
+        '200':
+          description: Updated rate with the api response
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+  "/api/transactions/index":
+    get:
+      summary: List all transactions
+      tags:
+      - TransactionController
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Get information of all transactions
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+  "/api/transactions/user_history":
+    get:
+      summary: Get all transaction from an specific user
+      tags:
+      - TransactionController
+      produces:
+      - application/json
+      parameters:
+      - name: request
+        in: body
+        schema:
+          type: object
+          properties:
+            user_id:
+              type: int
+              example: 1
+      responses:
+        '200':
+          description: Get information of all transactions
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+  "/api/transactions/create":
+    post:
+      summary: Create a transaction
+      tags:
+      - TransactionController
+      produces:
+      - application/json
+      parameters:
+      - name: request
+        in: body
+        schema:
+          type: object
+          properties:
+            user_id:
+              type: int
+              example: 1
+            transaction:
+              type: json
+              example: {
+                          'currency_to_use_id': 1,
+                          'currency_to_receive_id': 4,
+                          'amount_to_send': 200
+                      }
+      responses:
+        '200':
+          description: Transaction Created
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+  "/api/user_balances/update":
+    post:
+      summary: Update Balance for an specific user
+      tags:
+      - USerBalancesController
+      produces:
+      - application/json
+      parameters:
+      - name: request
+        in: body
+        schema:
+          type: object
+          properties:
+            user_id:
+              type: int
+              example: 1
+            amount:
+              type: int
+              example: 400,
+            withdraw:
+              type: boolean
+              example: false
+      responses:
+        '200':
+          description: Transaction Created
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+servers:
+- url: localhost:3000
+  variables:
+    defaultHost:
+      default: localhost:3000

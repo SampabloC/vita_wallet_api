@@ -36,6 +36,8 @@ gem "bootsnap", require: false
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin Ajax possible
 # gem "rack-cors"
 gem 'devise'
+gem 'rswag-api'
+gem 'rswag-ui'
 
 
 group :development, :test do
@@ -44,6 +46,7 @@ group :development, :test do
   gem 'rubocop', require: false #Clean code
   gem 'rspec-rails' #Unit test
   gem 'webmock' #Simulate request
+  gem 'rswag-specs'
 end
 
 group :development do
