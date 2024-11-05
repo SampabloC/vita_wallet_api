@@ -22,5 +22,11 @@ Rails.application.routes.draw do
       get 'current_rates', to: 'btc#current_rate'
       get 'update_rates', to: 'btc#update_rates'
     end
+
+    scope :transactions do
+      get 'index', to: 'transactions#index'
+      get 'user_history', to: 'transactions#user_history'
+      post 'create', to: 'transactions#create'
+    end
   end
 end
