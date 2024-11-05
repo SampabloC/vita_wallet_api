@@ -4,6 +4,6 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_many :user_transactions
-  has_many :transactions, through: :user_transactions
+  has_many :transactions
+  belongs_to :user_balance
 end
